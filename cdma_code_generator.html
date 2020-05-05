@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- Creator: Dimitrios Vavatsioulas -->
+<html>
+<head>
+    <script type="text/javascript" src='functions.js'> </script>
+    <title>Γεννήτρια για Ορθογώνιους Κώδικες CDMA</title>
+</head>
+<style type="text/css">
+
+hr {
+width: 100%;
+height: 0.003em;
+background-color: black;
+margin-right: auto;
+margin-left: auto;
+margin-top: 5px;
+margin-bottom: 5px;
+border-width: 2px;
+border-color: black;
+}
+
+</style>
+
+<body>
+	<h2> Γεννήτρια για Ορθογώνιους κώδικες 	CDMA </h2>
+	Υλοποίηση: Δημήτρης Βαβατσιούλας - dai18008
+	<hr>
+	<h3> Πλήθος chips (πλήθος ψηφίων του spreading code): </h3>
+	
+
+		<input type="text" id="chips">
+			
+
+	<button onclick="calc()">Υπολογισμός</button>
+	
+	<h3> Αποτέλεσμα - spreading codes: </h3>
+	<p id="nStations"></p>
+	
+	<p id="iStation"></p>
+	<p id="message"></p>
+	
+	<script>
+	
+		function calc(){
+			var n = document.getElementById("chips").value;
+			var isPowerOfTwo = Math.log2(n) % 1 === 0;
+			
+			if(isPowerOfTwo){
+			console.table(hadamard(n));
+			
+			var finalArray=hadamard(n);
+			var s="";
+			var i;
+			
+			for(i=0; i<finalArray.length; i++){
+				s+="Σταθμός "+(i)+": "+finalArray[i]+"<br>";
+			}
+	
+			document.getElementById('iStation').innerHTML = s;
+			document.getElementById('message').innerHTML = "Ανοίξτε την κονσόλα του Browser για να δείτε τον πίνακα σε ωραιοποιημένη μορφή";
+		} else{
+				window.alert("Παρακαλώ εισάγετε πλήθος chips που να είναι δύναμη του 2 (πχ 4, 8, 16, 32...)");
+			}
+			
+		}
+	</script>
+	
+</body>
+</html>
