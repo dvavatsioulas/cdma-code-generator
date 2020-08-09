@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <!-- Creator: Dimitrios Vavatsioulas -->
-<html>
+<html lang="el">
 <head>
 	<meta charset="utf-8">
-	<script type="text/javascript" src='functions.js'> </script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="Description" content="Γεννήτρια για ορθογώνιους κώδικες CDMA. Δημήτρης Βαβατσιούλας">
+	<script src='functions.js'></script>
 	<title>Γεννήτρια για Ορθογώνιους Κώδικες CDMA</title>
 </head>
-<style type="text/css">
+<style>
 
 hr {
 width: 100%;
@@ -27,45 +29,45 @@ border-color: black;
 	<h4>Υλοποίηση: Δημήτρης Βαβατσιούλας - dai18008</h4>
 	<a href="https://github.com/dvavatsioulas/cdma-code-generator">Github: CDMA Code Generator</a>
 	<hr>
-	<h3> Πλήθος chips (πλήθος ψηφίων του spreading code): </h3>
-	
+	<label for="chips"><h3>Πλήθος chips (πλήθος ψηφίων του spreading code, πρέπει να είναι δύναμη του 2):</h3></label>
 
-		<input type="text" id="chips">
-			
+
+	<input type="number" min="0" id="chips">
+
 
 	<button onclick="calc()">Υπολογισμός</button>
-	
-	<h3> Αποτέλεσμα - spreading codes: </h3>
+
+	<h3>Aποτέλεσμα - spreading codes:</h3>
 	<p id="nStations"></p>
-	
+
 	<p id="iStation"></p>
-	<p id="message"></p>
-	
+	<p id="message" hidden>Ανοίξτε την κονσόλα του Browser για να δείτε τον πίνακα σε ωραιοποιημένη μορφή</p>
+
 	<script>
-	
+
 		function calc(){
 			var n = document.getElementById("chips").value;
 			var isPowerOfTwo = Math.log2(n) % 1 === 0;
-			
+
 			if(isPowerOfTwo){
-			console.table(hadamard(n));
-			
-			var finalArray=hadamard(n);
-			var s="";
-			var i;
-			
-			for(i=0; i<finalArray.length; i++){
-				s+="Σταθμός "+(i)+": "+finalArray[i]+"<br>";
-			}
-	
-			document.getElementById('iStation').innerHTML = s;
-			document.getElementById('message').innerHTML = "Ανοίξτε την κονσόλα του Browser για να δείτε τον πίνακα σε ωραιοποιημένη μορφή";
-		} else{
+				var result = hadamard(n);
+				console.table(result);
+
+				var finalArray = result;
+				var s="";
+				var i;
+
+				for(i=0; i<finalArray.length; i++){
+					s+="Σταθμός "+(i)+": "+finalArray[i]+"<br>";
+				}
+
+				document.getElementById('iStation').innerHTML = s;
+				document.getElementById('message').hidden = false;
+			} else
 				window.alert("Παρακαλώ εισάγετε πλήθος chips που να είναι δύναμη του 2 (πχ 4, 8, 16, 32...)");
-			}
-			
+
 		}
 	</script>
-	
+
 </body>
 </html>
